@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Presença — Trilha do Conhecimento | CREDISEARA</title>
+<style>
+  :root {
+    --preto: #0A0A0B;
+    --preto-suave: #151517;
+    --cinza-borda: #2A2A2D;
+    --cinza-texto: #9A9AA2;
+    --branco: #F5F5F7;
+    --ciano: #40B2FF;
+    --ciano-escuro: #2C8FD4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--preto);
+    color: var(--branco);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--preto-suave);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 14px;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--ciano), transparent);
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    color: var(--ciano);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    color: var(--branco);
+  }
+
+  .subtitulo {
+    font-size: 14px;
+    color: var(--cinza-texto);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--cinza-texto);
+    margin-bottom: 6px;
+    margin-top: 18px;
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    background: var(--preto);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: var(--branco);
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus {
+    border-color: var(--ciano);
+  }
+
+  input::placeholder { color: #5A5A60; }
+
+  .data-registro {
+    margin-top: 18px;
+    padding: 12px 14px;
+    background: rgba(64, 178, 255, 0.06);
+    border: 1px solid rgba(64, 178, 255, 0.25);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--cinza-texto);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .data-registro strong { color: var(--branco); font-weight: 600; }
+
+  button {
+    width: 100%;
+    margin-top: 28px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: var(--ciano);
+    color: var(--preto);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  button:hover { background: var(--ciano-escuro); }
+  button:disabled { opacity: 0.6; cursor: default; }
+
+  .rodape {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 12px;
+    color: #55555C;
+  }
+
+  .sucesso, .erro {
+    display: none;
+    text-align: center;
+    padding: 8px 0 4px;
+  }
+
+  .sucesso h2 {
+    font-size: 19px;
+    color: var(--branco);
+    margin-bottom: 8px;
+  }
+
+  .sucesso p, .erro p {
+    font-size: 14px;
+    color: var(--cinza-texto);
+    line-height: 1.5;
+  }
+
+  .erro { color: #FF7A7A; }
+
+  .check {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: rgba(64,178,255,0.12);
+    border: 1px solid var(--ciano);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 22px;
+    color: var(--ciano);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div id="formulario">
+    <div class="eyebrow">CREDISEARA · Trilha do Conhecimento</div>
+    <h1>Lista de Presença</h1>
+    <div class="subtitulo">2° Encontro CrediSeara — registre seu nome e e-mail para confirmar sua participação.</div>
+
+    <form id="presenca-form" action="https://formspree.io/f/mjybzveb" method="POST">
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+
+      <div class="data-registro">
+        <span>Data do registro</span>
+        <strong id="data-exibida"></strong>
+      </div>
+      <input type="hidden" id="data" name="data">
+      <input type="hidden" name="encontro" value="2° Encontro CrediSeara — Trilha do Conhecimento">
+
+      <button type="submit" id="btn-enviar">Confirmar presença</button>
+    </form>
+
+    <div class="rodape">Instituto Professor Alfredo Saidneuy</div>
+  </div>
+
+  <div class="sucesso" id="sucesso">
+    <div class="check">✓</div>
+    <h2>Presença confirmada</h2>
+    <p>Obrigado! Seu registro foi salvo com sucesso.</p>
+  </div>
+
+  <div class="erro" id="erro">
+    <p>Não foi possível enviar seu registro agora. Verifique sua conexão e tente novamente.</p>
+  </div>
+
+</div>
+
+<script>
+  // Preenche a data/hora do registro automaticamente (não editável pelo aluno)
+  function dataFormatada() {
+    const agora = new Date();
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const ano = agora.getFullYear();
+    const hora = String(agora.getHours()).padStart(2, '0');
+    const min = String(agora.getMinutes()).padStart(2, '0');
+    return `${dia}/${mes}/${ano} ${hora}:${min}`;
+  }
+  document.getElementById('data-exibida').textContent = dataFormatada();
+  document.getElementById('data').value = dataFormatada();
+
+  const form = document.getElementById('presenca-form');
+  const btn = document.getElementById('btn-enviar');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const resposta = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (resposta.ok) {
+        document.getElementById('formulario').style.display = 'none';
+        document.getElementById('sucesso').style.display = 'block';
+      } else {
+        document.getElementById('erro').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Confirmar presença';
+      }
+    } catch (err) {
+      document.getElementById('erro').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Confirmar presença';
+    }
+  });
+</script>
+
+</body>
+</html>
